@@ -12,6 +12,7 @@
 .mtj.tmp/
 
 build/
+.gradle/
 # Package Files #
 *.jar
 *.war
