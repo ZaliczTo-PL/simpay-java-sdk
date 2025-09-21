@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'pl.zaliczto'
+version = '1.0.0'
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = 'simpay-sdk'
+        }
+    }
+    repositories {
+        maven {
+            url = uri("${buildDir}/repo")
+        }
+    }
+}
