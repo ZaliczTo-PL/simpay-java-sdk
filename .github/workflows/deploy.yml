@@ -8,6 +8,8 @@ on:
 jobs:
   release-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -18,19 +20,26 @@ jobs:
           distribution: temurin
           java-version: 24
 
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Extract version from Gradle
         id: version
         run: |
-          VERSION=$(./gradlew properties -q | grep "^version:" | awk '{print $2}')
+          VERSION=$(gradle properties -q | awk -F': ' '/^version:/{print $2}')
+          if [ -z "$VERSION" ]; then echo "Version not found"; exit 1; fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Create Git tag
         uses: rickstaa/action-create-tag@v1
         with:
           tag: v${{ steps.version.outputs.version }}
-          message: "Wersja v${{ steps.version.outputs.version }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          message: "Release v${{ steps.version.outputs.version }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_sha: ${{ github.sha }}
+          force_push_tag: false
+          tag_exists_error: false
+          no_verify_tag: true
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -43,7 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Maven repository
-        run: ./gradlew publish
+        run: gradle publish
 
       - name: Upload to Cloudflare Pages
         uses: cloudflare/pages-action@v1
