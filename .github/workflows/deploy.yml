@@ -76,10 +76,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Maven repository
-        run: gradle publish
+      - name: Build Maven repository and Javadocs
+        run: gradle publish javadoc
 
-      - name: Upload to Cloudflare Pages
+      - name: Copy Javadocs into Maven repo directory
+        run: |
+          mkdir -p build/repo/simpay-sdk-javadoc
+          cp -r build/docs/javadoc/* build/repo/simpay-sdk-javadoc/
+
+      - name: Upload Maven repository and Javadocs to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
