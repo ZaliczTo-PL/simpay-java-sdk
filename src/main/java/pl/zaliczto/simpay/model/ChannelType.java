@@ -12,6 +12,9 @@ import pl.zaliczto.simpay.util.Jsons;
 
 import java.util.Map;
 
+/**
+ * The type Channel type.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -41,6 +44,11 @@ public class ChannelType {
     @JsonProperty("latam")
     private boolean latam = true;
 
+    /**
+     * To map.
+     *
+     * @return the map
+     */
     public Map<String, Object> toMap() {
         return Jsons.MAPPER.convertValue(this, new TypeReference<Map<String, Object>>() {});
     }

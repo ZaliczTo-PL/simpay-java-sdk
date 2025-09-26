@@ -14,6 +14,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.math.BigDecimal;
 
+/**
+ * The type Generate transaction.
+ */
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -28,15 +31,32 @@ public class GenerateTransaction extends HttpService {
     private String steamId;
     private String email;
 
+    /**
+     * Instantiates a new Generate transaction.
+     *
+     * @param client the client
+     */
     public GenerateTransaction(SimPayClient client) {
         super(client);
     }
 
+    /**
+     * Sets amount.
+     *
+     * @param amount the amount
+     * @return the amount
+     */
     public GenerateTransaction setAmount(double amount) {
         this.amount = BigDecimal.valueOf(amount);
         return this;
     }
 
+    /**
+     * Generates the transaction.
+     *
+     * @return the transaction generated response
+     * @throws SimPayException the sim pay exception
+     */
     public TransactionGeneratedResponse generate() throws SimPayException {
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new SimPayException("Amount must be set and greater than zero before generating a transaction");

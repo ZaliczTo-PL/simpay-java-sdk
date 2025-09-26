@@ -9,6 +9,9 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Transaction info response.
+ */
 @Data
 public class TransactionInfoResponse {
     private String id;

@@ -14,12 +14,26 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Sms service.
+ */
 public class SmsService extends HttpService {
 
+    /**
+     * Instantiates a new Sms service.
+     *
+     * @param client the client
+     */
     public SmsService(SimPayClient client) {
         super(client);
     }
 
+    /**
+     * Numbers list.
+     *
+     * @return the list
+     * @throws SimPayException the sim pay exception
+     */
     public List<SmsNumberResponse> numbers() throws SimPayException {
         String serviceId = smsServiceId();
         if (serviceId == null || serviceId.isBlank()) {
@@ -34,6 +48,14 @@ public class SmsService extends HttpService {
         return Jsons.MAPPER.convertValue(data, new TypeReference<List<SmsNumberResponse>>(){});
     }
 
+    /**
+     * Check sms code response.
+     *
+     * @param code   the code
+     * @param number the number
+     * @return the sms code response
+     * @throws SimPayException the sim pay exception
+     */
     public SmsCodeResponse check(String code, Integer number) throws SimPayException {
         String serviceId = smsServiceId();
         if (serviceId == null || serviceId.isBlank()) {

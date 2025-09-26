@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import java.math.BigDecimal;
 
+/**
+ * The type Sms number response.
+ */
 @Data
 public class SmsNumberResponse {
     private int number;

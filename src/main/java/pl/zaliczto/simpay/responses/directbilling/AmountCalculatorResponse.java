@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import pl.zaliczto.simpay.responses.directbilling.amountcalculator.AmountResponse;
 
+/**
+ * The type Amount calculator response.
+ */
 @Data
 public class AmountCalculatorResponse {
     private AmountResponse orange;

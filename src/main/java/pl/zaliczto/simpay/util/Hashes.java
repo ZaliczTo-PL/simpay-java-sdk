@@ -3,9 +3,18 @@ package pl.zaliczto.simpay.util;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
+/**
+ * Utility class for hashing functions.
+ */
 public final class Hashes {
     private Hashes() {}
 
+    /**
+     * Function to compute SHA-256 hash of a given text and return it as a hexadecimal string.
+     *
+     * @param text the text
+     * @return the string
+     */
     public static String sha256Hex(String text) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -20,6 +29,13 @@ public final class Hashes {
         }
     }
 
+    /**
+     * Constant time equals boolean.
+     *
+     * @param a the start time
+     * @param b the end time
+     * @return the result of the time equals comparison
+     */
     public static boolean constantTimeEquals(String a, String b) {
         if (a == null || b == null) return false;
         int result = a.length() ^ b.length();

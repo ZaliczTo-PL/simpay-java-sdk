@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.time.Instant;
 
+/**
+ * The type Currency response.
+ */
 @Data
 public class CurrencyResponse {
     private String iso;

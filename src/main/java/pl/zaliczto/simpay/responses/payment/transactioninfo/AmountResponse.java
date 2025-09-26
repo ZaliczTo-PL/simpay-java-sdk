@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import java.math.BigDecimal;
 
+/**
+ * The type Amount response.
+ */
 @Data
 public class AmountResponse {
     private BigDecimal value;

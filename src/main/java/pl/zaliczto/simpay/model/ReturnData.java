@@ -11,6 +11,9 @@ import pl.zaliczto.simpay.util.Jsons;
 
 import java.util.Map;
 
+/**
+ * The type Return data.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,6 +24,11 @@ public class ReturnData {
     private String success;
     private String failure;
 
+    /**
+     * To map.
+     *
+     * @return the map
+     */
     public Map<String, Object> toMap() {
         return Jsons.MAPPER.convertValue(this, new TypeReference<Map<String, Object>>() {});
     }

@@ -5,6 +5,9 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * The type Channel response.
+ */
 @Data
 public class ChannelResponse {
     private String id;

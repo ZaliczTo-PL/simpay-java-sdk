@@ -12,6 +12,9 @@ import pl.zaliczto.simpay.services.core.HttpService;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Initiate blik level 0.
+ */
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -21,10 +24,21 @@ public class InitiateBlikLevel0 extends HttpService {
     private String ticket;
     private String transactionId;
 
+    /**
+     * Instantiates a new Initiate blik level 0.
+     *
+     * @param client the client
+     */
     public InitiateBlikLevel0(SimPayClient client) {
         super(client);
     }
 
+    /**
+     * Generate the transaction.
+     *
+     * @return the boolean
+     * @throws SimPayException the sim pay exception
+     */
     public boolean generate() throws SimPayException {
         if (ticketType == null || ticket == null || transactionId == null) {
             throw new SimPayException("ticketType, ticket and transactionId are required");

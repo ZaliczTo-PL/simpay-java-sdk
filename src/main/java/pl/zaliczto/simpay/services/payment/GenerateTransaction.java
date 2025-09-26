@@ -13,6 +13,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 
+/**
+ * The type Generate transaction.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
@@ -34,15 +37,32 @@ public class GenerateTransaction extends HttpService {
     private ChannelType channelTypes;
     private String referer;
 
+    /**
+     * Instantiates a new Generate transaction.
+     *
+     * @param client the client
+     */
     public GenerateTransaction(SimPayClient client) {
         super(client);
     }
 
+    /**
+     * Sets amount.
+     *
+     * @param amount the amount
+     * @return the amount
+     */
     public GenerateTransaction setAmount(double amount) {
         this.amount = BigDecimal.valueOf(amount);
         return this;
     }
 
+    /**
+     * Generates the transaction.
+     *
+     * @return the transaction generated response
+     * @throws SimPayException the sim pay exception
+     */
     public TransactionGeneratedResponse generate() throws SimPayException {
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new SimPayException("Amount must be set and greater than zero before generating a transaction");
@@ -83,18 +103,35 @@ public class GenerateTransaction extends HttpService {
         return new TransactionGeneratedResponse(url, txId);
     }
 
-    // Metody pomocnicze dla listy koszyka i kanałów
+    /**
+     * Sets the  cart items.
+     *
+     * @param items the items
+     * @return the generate transaction
+     */
     public GenerateTransaction cartItems(List<CartItem> items) {
         this.cart = items;
         return this;
     }
 
+    /**
+     * Add cart item
+     *
+     * @param item the item
+     * @return the generate transaction
+     */
     public GenerateTransaction addCartItem(CartItem item) {
         if (this.cart == null) this.cart = new ArrayList<>();
         this.cart.add(item);
         return this;
     }
 
+    /**
+     * Sets the available channels.
+     *
+     * @param channels the channels
+     * @return the generate transaction
+     */
     public GenerateTransaction channelsList(List<String> channels) {
         this.channels = channels;
         return this;

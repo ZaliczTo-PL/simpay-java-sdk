@@ -5,9 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Utility class to flatten nested arrays.
+ */
 public final class ArrayFlattener {
     private ArrayFlattener() {}
 
+    /**
+     * Flatten values list.
+     *
+     * @param obj object to flatten, can be a Map, Iterable, Array or single value
+     * @return flattened list of strings
+     */
     public static List<String> flattenValues(Object obj) {
         List<String> out = new ArrayList<>();
         flattenInto(obj, out);

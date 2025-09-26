@@ -14,6 +14,9 @@ import pl.zaliczto.simpay.util.Jsons;
 import java.util.Map;
 import java.math.BigDecimal;
 
+/**
+ * The type Cart item.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -35,6 +38,11 @@ public class CartItem {
     @JsonProperty("code")
     private String code;
 
+    /**
+     * To map.
+     *
+     * @return the map
+     */
     public Map<String, Object> toMap() {
         return Jsons.MAPPER.convertValue(this, new TypeReference<Map<String, Object>>() {});
     }

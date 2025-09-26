@@ -17,16 +17,36 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * The type Payment service.
+ */
 public class PaymentService extends HttpService {
 
+    /**
+     * Instantiates a new Payment service.
+     *
+     * @param client the client
+     */
     public PaymentService(SimPayClient client) {
         super(client);
     }
 
+    /**
+     * Gets generate transaction.
+     *
+     * @return the generate transaction
+     */
     public GenerateTransaction generate() {
         return new GenerateTransaction(client);
     }
 
+    /**
+     * Gets transaction info.
+     *
+     * @param transactionId the transaction id
+     * @return the transaction info
+     * @throws SimPayException the sim pay exception
+     */
     public TransactionInfoResponse getTransactionInfo(String transactionId) throws SimPayException {
         String serviceId = paymentServiceId();
         if (serviceId == null || serviceId.isBlank()) {
@@ -44,6 +64,12 @@ public class PaymentService extends HttpService {
         }
     }
 
+    /**
+     * Channels list.
+     *
+     * @return the list
+     * @throws SimPayException the sim pay exception
+     */
     public List<ChannelResponse> channels() throws SimPayException {
         String serviceId = paymentServiceId();
         if (serviceId == null || serviceId.isBlank()) {
@@ -57,6 +83,12 @@ public class PaymentService extends HttpService {
         return Jsons.MAPPER.convertValue(data, new TypeReference<List<ChannelResponse>>(){});
     }
 
+    /**
+     * Currencies list.
+     *
+     * @return the list
+     * @throws SimPayException the sim pay exception
+     */
     public List<CurrencyResponse> currencies() throws SimPayException {
         String serviceId = paymentServiceId();
         if (serviceId == null || serviceId.isBlank()) {
@@ -70,10 +102,21 @@ public class PaymentService extends HttpService {
         return Jsons.MAPPER.convertValue(data, new TypeReference<List<CurrencyResponse>>(){});
     }
 
+    /**
+     * Blik level 0 initiate blik level 0.
+     *
+     * @return the initiate blik level 0
+     */
     public InitiateBlikLevel0 blikLevel0() {
         return new InitiateBlikLevel0(client);
     }
 
+    /**
+     * Ipn signature valid boolean.
+     *
+     * @param params the params
+     * @return the boolean
+     */
     public boolean ipnSignatureValid(Map<String, Object> params) {
         Object sig = params.get("signature");
         if (!(sig instanceof String signature) || signature.isEmpty()) return false;

@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.time.Instant;
 
+/**
+ * The type Notify response.
+ */
 @Data
 public class NotifyResponse {
     @JsonProperty("is_send")

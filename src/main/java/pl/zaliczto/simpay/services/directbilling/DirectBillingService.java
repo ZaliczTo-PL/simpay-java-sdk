@@ -15,14 +15,34 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
 
+/**
+ * The type Direct billing service.
+ */
 public class DirectBillingService extends HttpService {
 
+    /**
+     * Instantiates a new Direct billing service.
+     *
+     * @param client the client
+     */
     public DirectBillingService(SimPayClient client) {
         super(client);
     }
 
+    /**
+     * Generate generate transaction.
+     *
+     * @return the generate transaction
+     */
     public GenerateTransaction generate() { return new GenerateTransaction(client); }
 
+    /**
+     * Gets transaction info.
+     *
+     * @param transactionId the transaction id
+     * @return the transaction info
+     * @throws SimPayException the sim pay exception
+     */
     public TransactionInfoResponse getTransactionInfo(String transactionId) throws SimPayException {
         String serviceId = directBillingServiceId();
         if (serviceId == null || serviceId.isBlank()) {
@@ -40,6 +60,13 @@ public class DirectBillingService extends HttpService {
         }
     }
 
+    /**
+     * Calculate amount calculator.
+     *
+     * @param amount the amount
+     * @return the amount calculator response
+     * @throws SimPayException the sim pay exception
+     */
     public AmountCalculatorResponse calculate(BigDecimal amount) throws SimPayException {
         String serviceId = directBillingServiceId();
         if (serviceId == null || serviceId.isBlank()) {
@@ -58,6 +85,12 @@ public class DirectBillingService extends HttpService {
         }
     }
 
+    /**
+     * Checks if the ipn signature is valid.
+     *
+     * @param params the params
+     * @return the boolean
+     */
     public boolean ipnSignatureValid(Map<String, Object> params) {
         Object sig = params.get("signature");
         if (!(sig instanceof String signature) || signature.isEmpty()) return false;

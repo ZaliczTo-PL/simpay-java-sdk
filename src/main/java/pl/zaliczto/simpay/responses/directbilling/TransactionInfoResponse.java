@@ -10,6 +10,9 @@ import pl.zaliczto.simpay.responses.directbilling.transactioninfo.NotifyResponse
 import java.time.Instant;
 import java.math.BigDecimal;
 
+/**
+ * The type Transaction info response.
+ */
 @Data
 public class TransactionInfoResponse {
     private String id;

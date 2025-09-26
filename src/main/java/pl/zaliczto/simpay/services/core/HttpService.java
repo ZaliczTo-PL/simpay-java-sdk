@@ -13,15 +13,35 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * The base service class for all services.
+ */
 public abstract class HttpService {
+    /**
+     * The Client.
+     */
     protected final SimPayClient client;
     private static final OkHttpClient HTTP = new OkHttpClient();
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
+    /**
+     * Instantiates a new Http service.
+     *
+     * @param client the client
+     */
     protected HttpService(SimPayClient client) {
         this.client = client;
     }
 
+    /**
+     *  Preforms a raw request to the simpay api and returns the response envelope.
+     *
+     * @param method  the method
+     * @param path    the path
+     * @param payload the payload
+     * @return the response envelope
+     * @throws SimPayException the sim pay exception
+     */
     protected ResponseEnvelope requestRaw(String method, String path, Object payload) throws SimPayException {
         String base = client.baseUrl();
         if (!base.endsWith("/")) {
@@ -68,6 +88,15 @@ public abstract class HttpService {
         }
     }
 
+    /**
+     * Preforms a request to the simpay api and returns the response envelope.
+     *
+     * @param method  the method
+     * @param path    the path
+     * @param payload the payload
+     * @return the response envelope
+     * @throws SimPayException the sim pay exception
+     */
     protected ResponseEnvelope request(String method, String path, Object payload)
             throws SimPayException {
         ResponseEnvelope env = requestRaw(method, path, payload);
@@ -99,13 +128,44 @@ public abstract class HttpService {
         throw new SimPayException("unexpected api error. " + code + ": " + (message != null ? message : raw), errorCode);
     }
 
+    /**
+     * Payment service id string.
+     *
+     * @return the string
+     */
     protected String paymentServiceId() { return client.paymentServiceId(); }
+
+    /**
+     * Direct billing service id string.
+     *
+     * @return the string
+     */
     protected String directBillingServiceId() { return client.directBillingServiceId(); }
+
+    /**
+     * Sms service id string.
+     *
+     * @return the string
+     */
     protected String smsServiceId() { return client.smsServiceId(); }
+
+    /**
+     * Payment hash string.
+     *
+     * @return the string
+     */
     protected String paymentHash() { return client.paymentHash(); }
+
+    /**
+     * Direct billing hash string.
+     *
+     * @return the string
+     */
     protected String directBillingHash() { return client.directBillingHash(); }
 
 
-
+    /**
+     * The type Response envelope.
+     */
     protected record ResponseEnvelope(int status, String body, JsonNode json) {}
 }

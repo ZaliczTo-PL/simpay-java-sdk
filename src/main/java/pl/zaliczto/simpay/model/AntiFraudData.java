@@ -12,6 +12,9 @@ import lombok.experimental.Accessors;
 
 import java.util.Map;
 
+/**
+ * Anti-fraud data to be sent with payment requests for enhanced security and fraud prevention.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -34,6 +37,11 @@ public class AntiFraudData {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    /**
+     * To map.
+     *
+     * @return the map
+     */
     public Map<String, Object> toMap() {
         return MAPPER.convertValue(this, new TypeReference<Map<String, Object>>() {});
     }

@@ -3,6 +3,9 @@ package pl.zaliczto.simpay.responses.payment.transactioninfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+/**
+ * The type Customer full data response.
+ */
 @Data
 public class CustomerFullDataResponse {
     private String name;

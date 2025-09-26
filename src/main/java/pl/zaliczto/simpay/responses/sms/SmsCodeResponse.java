@@ -6,6 +6,9 @@ import lombok.Data;
 import java.time.Instant;
 import java.math.BigDecimal;
 
+/**
+ * The type Sms code response.
+ */
 @Data
 public class SmsCodeResponse {
     private boolean used;
