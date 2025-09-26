@@ -30,38 +30,6 @@ jobs:
           if [ -z "$VERSION" ]; then echo "Version not found"; exit 1; fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Create Git tag
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: v${{ steps.version_before_bump.outputs.version }}
-          message: "Release v${{ steps.version_before_bump.outputs.version }}"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit_sha: ${{ github.sha }}
-          force_push_tag: false
-          tag_exists_error: false
-          no_verify_tag: true
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.version_before_bump.outputs.version }}
-          name: Wersja v${{ steps.version_before_bump.outputs.version }}
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build Maven repository
-        run: gradle publish
-
-      - name: Upload to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: repo-zaliczto
-          directory: build/repo
-
       - name: Check if tag exists and bump version if needed
         id: bump_version
         run: |
@@ -86,3 +54,35 @@ jobs:
           VERSION=$(gradle properties -q | awk -F': ' '/^version:/{print $2}')
           if [ -z "$VERSION" ]; then echo "Version not found"; exit 1; fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create Git tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: v${{ steps.version_after_bump.outputs.version }}
+          message: "Release v${{ steps.version_after_bump.outputs.version }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_sha: ${{ github.sha }}
+          force_push_tag: false
+          tag_exists_error: false
+          no_verify_tag: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version_after_bump.outputs.version }}
+          name: Wersja v${{ steps.version_after_bump.outputs.version }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Maven repository
+        run: gradle publish
+
+      - name: Upload to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          projectName: repo-zaliczto
+          directory: build/repo
