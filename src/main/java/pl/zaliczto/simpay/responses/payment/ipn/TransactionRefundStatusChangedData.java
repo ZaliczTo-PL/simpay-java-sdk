@@ -3,6 +3,7 @@ package pl.zaliczto.simpay.responses.payment.ipn;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import pl.zaliczto.simpay.enums.payment.RefundStatus;
 
 /**
  * Data object for type transaction_refund:status_changed
@@ -13,7 +14,7 @@ public class TransactionRefundStatusChangedData {
     private String id; // refund id
     @JsonProperty("service_id")
     private String serviceId;
-    private String status; // RefundStatusEnum as string
+    private RefundStatus status; // RefundStatusEnum
     private Amount amount;
     private Transaction transaction;
 

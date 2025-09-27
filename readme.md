@@ -24,7 +24,9 @@ dependencies {
         <url>https://repo.zaliczto.pl</url>
     </repository>
 </repositories>
+```
 
+```xml
 <dependency>
     <groupId>pl.zaliczto</groupId>
     <artifactId>simpay-sdk</artifactId>
@@ -68,13 +70,33 @@ In order to view the documentation, please refer to the [Javadoc](https://repo.z
 Example signature validation of incoming Payment IPN (see https://docs.simpay.pl/notifications/payment):
 
 ```java
-@PostMapping(path = "/simpay/ipn", consumes = MediaType.APPLICATION_JSON_VALUE)
+@PostMapping(path = "/simpay/ipn", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
 public ResponseEntity<String> handleIpn(@RequestBody Map<String,Object> payload) {
     if(!simPayClient.getPaymentService().ipnSignatureValid(payload)) {
         return ResponseEntity.status(403).body("INVALID_SIGNATURE");
     }
-    // process event
-    return ResponseEntity.ok("OK"); // MUST return plain text OK with 200
+    // optional: map to typed model
+    PaymentIpnNotification notification = Jsons.MAPPER.convertValue(payload, PaymentIpnNotification.class);
+    switch (notification.notificationTypeEnum()) {
+        case TRANSACTION_STATUS_CHANGED -> {
+            TransactionStatusChangedData data = (TransactionStatusChangedData) notification.getTypedData();
+            // handle transaction status change
+        }
+        case TRANSACTION_REFUND -> {
+            TransactionRefundStatusChangedData data = (TransactionRefundStatusChangedData) notification.getTypedData();
+            // handle refund change
+        }
+        case TEST -> {
+            TestNotificationData data = (TestNotificationData) notification.getTypedData();
+            // handle test notification
+        }
+        case BLIK_LEVEL_0 -> {
+            BlikLevel0CodeStatusChangedData data = (BlikLevel0CodeStatusChangedData) notification.getTypedData();
+            // handle blik level0 ticket status
+        }
+        default -> {}
+    }
+    return ResponseEntity.ok("OK");
 }
 ```
 
