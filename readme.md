@@ -63,5 +63,20 @@ SimPayClient simPayClient = SimPayClient("your_bearer_token")
 
 In order to view the documentation, please refer to the [Javadoc](https://repo.zaliczto.pl/simpay-sdk-javadoc/).
 
+### Handling Payment IPN (v2)
+
+Example signature validation of incoming Payment IPN (see https://docs.simpay.pl/notifications/payment):
+
+```java
+@PostMapping(path = "/simpay/ipn", consumes = MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<String> handleIpn(@RequestBody Map<String,Object> payload) {
+    if(!simPayClient.getPaymentService().ipnSignatureValid(payload)) {
+        return ResponseEntity.status(403).body("INVALID_SIGNATURE");
+    }
+    // process event
+    return ResponseEntity.ok("OK"); // MUST return plain text OK with 200
+}
+```
+
 ## License
 See [LICENSE](LICENSE) for details.

@@ -120,10 +120,24 @@ public class PaymentService extends HttpService {
     public boolean ipnSignatureValid(Map<String, Object> params) {
         Object sig = params.get("signature");
         if (!(sig instanceof String signature) || signature.isEmpty()) return false;
+        // IPN v2 spec (https://docs.simpay.pl/notifications/payment):
+        // signature = sha256(type|notification_id|date|<flattened data values>|key)
         Map<String, Object> filtered = params.entrySet().stream()
                 .filter(e -> !"signature".equals(e.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a,b)->a, java.util.LinkedHashMap::new));
-        List<String> values = ArrayFlattener.flattenValues(filtered);
+        List<String> values = new ArrayList<>();
+        Object type = filtered.remove("type");
+        Object notificationId = filtered.remove("notification_id");
+        Object date = filtered.remove("date");
+        Object data = filtered.remove("data");
+        if (type != null) values.add(String.valueOf(type));
+        if (notificationId != null) values.add(String.valueOf(notificationId));
+        if (date != null) values.add(String.valueOf(date));
+        if (data != null) values.addAll(ArrayFlattener.flattenValues(data));
+        // add any other unexpected top-level fields in their (insertion) order for forward compatibility
+        if (!filtered.isEmpty()) {
+            values.addAll(ArrayFlattener.flattenValues(filtered));
+        }
         values.add(client.paymentHash());
         String calculated = Hashes.sha256Hex(String.join("|", values));
         return Hashes.constantTimeEquals(calculated, signature);
