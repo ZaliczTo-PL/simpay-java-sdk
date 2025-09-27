@@ -3,8 +3,8 @@ package pl.zaliczto.simpay.responses.payment.ipn;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import pl.zaliczto.simpay.enums.payment.BlikCodeError;
 import pl.zaliczto.simpay.enums.payment.TransactionStatus;
-import pl.zaliczto.simpay.enums.payment.BlikTicketStatus;
 
 /**
  * Data object for type transaction_blik_level0:code_status_changed
@@ -13,7 +13,7 @@ import pl.zaliczto.simpay.enums.payment.BlikTicketStatus;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BlikLevel0CodeStatusChangedData {
     @JsonProperty("ticket_status")
-    private BlikTicketStatus ticketStatus;
+    private BlikCodeError ticketStatus;
     private Transaction transaction;
 
     @Data
