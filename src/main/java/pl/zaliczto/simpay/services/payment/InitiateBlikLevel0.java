@@ -67,7 +67,10 @@ public class InitiateBlikLevel0 extends HttpService {
                     || "BLIK_CODE_EXPIRED".equals(errorCode)
                     || "BLIK_CODE_CANCELLED".equals(errorCode)
                     || "BLIK_CODE_USED".equals(errorCode)
-                    || "BLIK_CODE_NOT_SUPPORTED".equals(errorCode)) {
+                    || "BLIK_CODE_NOT_SUPPORTED".equals(errorCode)
+                    || "BLIK_CODE_LIMIT".equals(errorCode)
+                    || "BLIK_GENERAL_ERROR".equals(errorCode)
+                    || "BLIK_TECHNICAL_BREAK".equals(errorCode)) {
                 throw new InvalidBlikTicketException("[" + errorCode + "] " + message, errorCode);
             }
         }

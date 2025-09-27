@@ -7,6 +7,19 @@ public enum BlikTicketStatus {
     VALID,
     REJECTED,
     EXPIRED,
+    INSUFFICIENT_FUNDS,
+    LIMIT_EXCEEDED,
+    TIMEOUT,
+    GENERAL_ERROR,
+    SYSTEM_ERROR,
+    SEC_DECLINED,
+    USER_DECLINED,
+    TAS_DECLINED,
     PENDING,
-    UNKNOWN
+    UNKNOWN;
+
+    public static BlikTicketStatus fromRaw(String raw) {
+        if (raw == null) return UNKNOWN;
+        try { return BlikTicketStatus.valueOf(raw); } catch (IllegalArgumentException e) { return UNKNOWN; }
+    }
 }
