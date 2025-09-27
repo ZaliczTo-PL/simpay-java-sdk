@@ -14,7 +14,7 @@ public class TransactionRefundStatusChangedData {
     private String id; // refund id
     @JsonProperty("service_id")
     private String serviceId;
-    private RefundStatus status; // RefundStatusEnum
+    private RefundStatus status;
     private Amount amount;
     private Transaction transaction;
 

@@ -134,7 +134,6 @@ public class PaymentService extends HttpService {
         if (notificationId != null) values.add(String.valueOf(notificationId));
         if (date != null) values.add(String.valueOf(date));
         if (data != null) values.addAll(ArrayFlattener.flattenValues(data));
-        // add any other unexpected top-level fields in their (insertion) order for forward compatibility
         if (!filtered.isEmpty()) {
             values.addAll(ArrayFlattener.flattenValues(filtered));
         }

@@ -13,7 +13,7 @@ import pl.zaliczto.simpay.enums.payment.BlikTicketStatus;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BlikLevel0CodeStatusChangedData {
     @JsonProperty("ticket_status")
-    private BlikTicketStatus ticketStatus; // VALID / others
+    private BlikTicketStatus ticketStatus;
     private Transaction transaction;
 
     @Data
