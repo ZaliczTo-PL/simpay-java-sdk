@@ -122,7 +122,10 @@ public abstract class HttpService {
             if (root != null && root.has("errors")) {
                 errors = Jsons.MAPPER.convertValue(root.get("errors"), new TypeReference<Map<String, Object>>() {});
             }
-            throw new ValidationFailedException(errors, message != null ? message : "Validation failed");
+
+            System.out.println("Validation errors: " + (errors != null ? errors : "none"));
+
+                throw new ValidationFailedException(errors, message != null ? message : "Validation failed");
         }
 
         throw new SimPayException("unexpected api error. " + code + ": " + (message != null ? message : raw), errorCode);
