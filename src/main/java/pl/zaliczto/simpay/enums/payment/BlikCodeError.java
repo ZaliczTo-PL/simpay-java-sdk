@@ -1,7 +1,7 @@
 package pl.zaliczto.simpay.enums.payment;
 
 /**
- * Error codes returned when submitting a BLIK Level 0 code (initiation step) according to docs.
+ * Error codes returned when submitting a BLIK Level 0 code according to docs.
  */
 public enum BlikCodeError {
     INVALID_BLIK_CODE,
