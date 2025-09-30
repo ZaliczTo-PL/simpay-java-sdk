@@ -12,7 +12,7 @@ repositories {
     maven { url = uri("https://repo.zaliczto.pl") }
 }
 dependencies {
-    implementation("pl.zaliczto:simpay-sdk:1.0.1")
+    implementation("pl.zaliczto:simpay-sdk:VERSION")
 }
 ```
 
@@ -30,7 +30,7 @@ dependencies {
 <dependency>
     <groupId>pl.zaliczto</groupId>
     <artifactId>simpay-sdk</artifactId>
-    <version>1.0.1</version>
+    <version>VERSION</version>
 </dependency>
 ```
 
@@ -64,41 +64,6 @@ SimPayClient simPayClient = SimPayClient("your_bearer_token")
 ## Documentation 
 
 In order to view the documentation, please refer to the [Javadoc](https://repo.zaliczto.pl/simpay-sdk-javadoc/).
-
-### Handling Payment IPN (v2)
-
-Example signature validation of incoming Payment IPN (see https://docs.simpay.pl/notifications/payment):
-
-```java
-@PostMapping(path = "/simpay/ipn", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-public ResponseEntity<String> handleIpn(@RequestBody Map<String,Object> payload) {
-    if(!simPayClient.getPaymentService().ipnSignatureValid(payload)) {
-        return ResponseEntity.status(403).body("INVALID_SIGNATURE");
-    }
-    // optional: map to typed model
-    PaymentIpnNotification notification = Jsons.MAPPER.convertValue(payload, PaymentIpnNotification.class);
-    switch (notification.notificationTypeEnum()) {
-        case TRANSACTION_STATUS_CHANGED -> {
-            TransactionStatusChangedData data = (TransactionStatusChangedData) notification.getTypedData();
-            // handle transaction status change
-        }
-        case TRANSACTION_REFUND -> {
-            TransactionRefundStatusChangedData data = (TransactionRefundStatusChangedData) notification.getTypedData();
-            // handle refund change
-        }
-        case TEST -> {
-            TestNotificationData data = (TestNotificationData) notification.getTypedData();
-            // handle test notification
-        }
-        case BLIK_LEVEL_0 -> {
-            BlikLevel0CodeStatusChangedData data = (BlikLevel0CodeStatusChangedData) notification.getTypedData();
-            // handle blik level0 ticket status
-        }
-        default -> {}
-    }
-    return ResponseEntity.ok("OK");
-}
-```
 
 ## License
 See [LICENSE](LICENSE) for details.
