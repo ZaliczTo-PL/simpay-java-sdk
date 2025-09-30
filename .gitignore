@@ -3,7 +3,8 @@
 
 # Log file
 *.log
-
+#  Mac OS X
+.DS_Store
 .idea/
 # BlueJ files
 *.ctxt
