@@ -12,7 +12,7 @@ repositories {
     maven { url = uri("https://repo.zaliczto.pl") }
 }
 dependencies {
-    implementation("pl.zaliczto:simpay-sdk:VERSION")
+    implementation("pl.zaliczto:simpay-sdk:<---!CURRENTVERSION--->")
 }
 ```
 
@@ -30,7 +30,7 @@ dependencies {
 <dependency>
     <groupId>pl.zaliczto</groupId>
     <artifactId>simpay-sdk</artifactId>
-    <version>VERSION</version>
+    <version><---!CURRENTVERSION---></version>
 </dependency>
 ```
 
