@@ -3,7 +3,10 @@
 (c) 2025 Stanisław Botwina
 
 
+
 ## Installation
+
+The lastest version can be aquired by looking at the releases tab and checking the lastest build.
 
 ### Gradle
 ```kotlin
@@ -12,7 +15,7 @@ repositories {
     maven { url = uri("https://repo.zaliczto.pl") }
 }
 dependencies {
-    implementation("pl.zaliczto:simpay-sdk:<---!CURRENTVERSION--->")
+    implementation("pl.zaliczto:simpay-sdk:version")
 }
 ```
 
@@ -30,7 +33,7 @@ dependencies {
 <dependency>
     <groupId>pl.zaliczto</groupId>
     <artifactId>simpay-sdk</artifactId>
-    <version><---!CURRENTVERSION---></version>
+    <version>version</version>
 </dependency>
 ```
 
