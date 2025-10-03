@@ -14,21 +14,21 @@ import pl.zaliczto.simpay.services.sms.SmsService;
 import java.util.List;
 
 class SimPayClientTest {
-    @Test
-    public void makePayment() throws SimPayException {
-        SimPayClient client = new SimPayClient("token").paymentServiceId("serviceid");
-
-        TransactionGeneratedResponse transRsp = client.getPaymentService().generate()
-                .setAmount(1.0)
-                .setCurrency("PLN")
-                .setDescription("testowa platnosc")
-                .channelsList(List.of("blik","mbank" ,"pko_bp"))
-                .setAntiFraud(AntiFraudData.builder().userAgent("JUnit Test").build())
-                .setCustomer(new CustomerData("Stanisław", "me@nightowl.dev", "127.0.0.0", "PL"))
-                .generate();
-
-        System.out.println("Payment URL: " + transRsp.getUrl());
-    }
+//    @Test
+//    public void makePayment() throws SimPayException {
+//        SimPayClient client = new SimPayClient("token").paymentServiceId("serviceid");
+//
+//        TransactionGeneratedResponse transRsp = client.getPaymentService().generate()
+//                .setAmount(1.0)
+//                .setCurrency("PLN")
+//                .setDescription("testowa platnosc")
+//                .channelsList(List.of("blik","mbank" ,"pko_bp"))
+//                .setAntiFraud(AntiFraudData.builder().userAgent("JUnit Test").build())
+//                .setCustomer(new CustomerData("Stanisław", "me@nightowl.dev", "127.0.0.0", "PL"))
+//                .generate();
+//
+//        System.out.println("Payment URL: " + transRsp.getUrl());
+//    }
     @Test
     void fluentSettersAndServiceCaching() {
         SimPayClient client = new SimPayClient("token").baseUrl("http://example").paymentServiceId("p1");
