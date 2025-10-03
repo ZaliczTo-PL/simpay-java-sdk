@@ -22,3 +22,4 @@ jobs:
           cf-account-id: ${{ secrets.CF_ACCOUNT_ID }}
           cf-project-name: repo-zaliczto
           javadoc-url-marker: '<---!JAVADOCURL--->'
+          update-readme: 'true'
