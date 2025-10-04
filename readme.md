@@ -1,4 +1,4 @@
-![simpay-java-sdk](https://socialify.git.ci/ZaliczTo-PL/simpay-java-sdk/image?custom_description=Unofficial+SDK+for+simpay.pl+created+for+the+usages+at+ZaliczTo.PL&description=1&font=Inter&name=1&owner=1&pattern=Circuit+Board&stargazers=1&theme=Dark)
+![simpay-java-sdk](https://socialify.git.ci/ZaliczTo-PL/simpay-java-sdk/image?custom_description=Unofficial+SDK+for+simpay.pl+created+for+the+usages+at+ZaliczTo.PL&description=1&font=Inter&issues=1&name=1&owner=1&pattern=Circuit+Board&pulls=1&stargazers=1&theme=Dark)
 # SimPay Java SDK
 
 (c) 2025 Stanisław Botwina
