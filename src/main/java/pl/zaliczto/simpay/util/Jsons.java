@@ -2,6 +2,7 @@ package pl.zaliczto.simpay.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -21,6 +22,5 @@ public final class Jsons {
             .configure(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS, true)
             .registerModule(new JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-            //fix instants serialization
-            .disable(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS);
+            .disable(MapperFeature.REQUIRE_HANDLERS_FOR_JAVA8_TIMES);
 }
