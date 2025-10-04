@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.zaliczto.simpay.enums.payment.IpnNotificationType;
 import pl.zaliczto.simpay.responses.payment.PaymentIpnNotification;
 import pl.zaliczto.simpay.responses.payment.ipn.*;
+import pl.zaliczto.simpay.util.Jsons;
 
 import java.io.IOException;
 
@@ -15,7 +16,7 @@ import java.io.IOException;
  * Deserializes PaymentIpnNotification with typed data model depending on "type" field.
  */
 public class PaymentIpnDeserializer extends JsonDeserializer<PaymentIpnNotification> {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = Jsons.MAPPER;
 
     @Override
     public PaymentIpnNotification deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
