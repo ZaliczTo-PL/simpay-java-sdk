@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import pl.zaliczto.simpay.SimPayClient;
 import pl.zaliczto.simpay.enums.payment.BlikLevel0TicketType;
-import pl.zaliczto.simpay.enums.payment.BlikCodeError;
+import pl.zaliczto.simpay.enums.payment.BlikCodeStatus;
 import pl.zaliczto.simpay.exceptions.SimPayException;
 import pl.zaliczto.simpay.exceptions.blik.InvalidBlikTicketException;
 import pl.zaliczto.simpay.services.core.HttpService;
@@ -63,7 +63,7 @@ public class InitiateBlikLevel0 extends HttpService {
                 : resp.body();
 
         if (code == 400) {
-            BlikCodeError codeEnum = BlikCodeError.from(errorCode);
+            BlikCodeStatus codeEnum = BlikCodeStatus.from(errorCode);
             if (codeEnum != null) {
                 throw new InvalidBlikTicketException("[" + errorCode + "] " + message, errorCode);
             }

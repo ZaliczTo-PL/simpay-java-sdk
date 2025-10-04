@@ -1,9 +1,9 @@
 package pl.zaliczto.simpay.enums.payment;
 
 /**
- * Error codes returned when submitting a BLIK Level 0 code according to docs.
+ * Status codes returned when submitting a BLIK Level 0 code according to docs.
  */
-public enum BlikCodeError {
+public enum BlikCodeStatus {
     INVALID_BLIK_CODE,
     PAYER_APP_NOT_ACTIVE,
     PAYER_APP_NOT_FOUND,
@@ -22,10 +22,11 @@ public enum BlikCodeError {
     SYSTEM_ERROR,
     SEC_DECLINED,
     USER_DECLINED,
-    TAS_DECLINED;
+    TAS_DECLINED,
+    VALID;
 
-    public static BlikCodeError from(String raw) {
+    public static BlikCodeStatus from(String raw) {
         if (raw == null) return null;
-        try { return BlikCodeError.valueOf(raw); } catch (IllegalArgumentException e) { return null; }
+        try { return BlikCodeStatus.valueOf(raw); } catch (IllegalArgumentException e) { return null; }
     }
 }
