@@ -3,7 +3,7 @@ package pl.zaliczto.simpay.enums.payment;
 /**
  * Status codes returned when submitting a BLIK Level 0 code according to docs.
  */
-public enum BlikCodeStatus {
+public enum BlikTicketStatus {
     INVALID_BLIK_CODE,
     PAYER_APP_NOT_ACTIVE,
     PAYER_APP_NOT_FOUND,
@@ -23,10 +23,11 @@ public enum BlikCodeStatus {
     SEC_DECLINED,
     USER_DECLINED,
     TAS_DECLINED,
+    TRANSACTION_NOT_NEW,
     VALID;
 
-    public static BlikCodeStatus from(String raw) {
+    public static BlikTicketStatus from(String raw) {
         if (raw == null) return null;
-        try { return BlikCodeStatus.valueOf(raw); } catch (IllegalArgumentException e) { return null; }
+        try { return BlikTicketStatus.valueOf(raw); } catch (IllegalArgumentException e) { return null; }
     }
 }
