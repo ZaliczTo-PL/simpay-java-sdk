@@ -67,7 +67,7 @@ SimPayClient simPayClient = SimPayClient("your_bearer_token")
 
 ## Documentation 
 
-In order to view the documentation, please refer to the [Javadoc](https://repo.zaliczto.pl/simpay-sdk-javadoc/).
+good luck.
 
 ## License
 See [LICENSE](LICENSE) for details.
